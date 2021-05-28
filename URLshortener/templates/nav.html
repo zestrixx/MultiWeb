@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet">
+    <title>multiweb</title>
+    <style>
+      body {
+        font-family: 'Baloo Thambi 2', cursive;
+      }
+      .navbar-nav{
+        margin-left: 260px;
+      }
+      .nav-item {
+        margin: 0 0 0 15px;
+        font-size: 14px;
+      }
+
+      .nav-link:hover {
+        color: #5777ba;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand ml-4" style="color: #5777ba; font-size:30px;"
+          href="/">Multiweb</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+          aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" style="margin-left: 90px;"
+          id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" style="color: #5777ba;" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #47536e;"
+                href="/#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #47536e;"
+                href="/#pricing">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #47536e;" href="/#faq">F.A.Q</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #47536e;"
+                href="/#contact">Contact Us</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link"
+                style="padding: 10px 25px; background-color: #5777ba; color: white; border-radius:50px;"
+                href="{% url 'dashboard' %}">
+                {{user.username}}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #47536e;"
+                href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" style="color: #47536e;"
+                href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" style="color: #47536e;"
+                href="{% url 'signup' %}">Signup</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <br>
+
+    {% block body %}
+
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous">
+      </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous">
+      </script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous">
+      </script>
+
+  </body>
+
+</html>

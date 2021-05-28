@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>multiweb</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    {% load static %}
+    <!-- Favicons -->
+    <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+    <link href="{% static 'assets/img/apple-touch-icon.png' %}"
+      rel="apple-touch-icon">
+
+    <!-- fontawesome icons -->
+    <script src="https://kit.fontawesome.com/109e532b07.js"
+      crossorigin="anonymous"></script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet">
+    <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}"
+      rel="stylesheet">
+    <link href="/{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}"
+      rel="stylesheet">
+    <link
+      href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}"
+      rel="stylesheet">
+    <link href="{% static 'assets/vendor/venobox/venobox.css' %}"
+      rel="stylesheet">
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  </head>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top  header-transparent ">
+      <div class="container d-flex align-items-center">
+
+        <div class="logo mr-auto">
+          <h1 class="text-light"><a href="{% url 'home' %}">Multiweb</a></h1>
+          <!-- Uncomment below if you prefer to use an image logo -->
+          <!-- <a href="index.html"><img src="{% static 'assets/img/logo.png' %}" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav class="nav-menu d-none d-lg-block">
+          <ul>
+            <li class="active"><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="#features">App Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#faq">F.A.Q</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+            {% if user.is_authenticated %}
+            <li class="get-started"><a
+                href="{% url 'dashboard' %}">{{user.username}}</a>
+            </li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            {%else%}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Signup</a></li>
+            {% endif %}
+          </ul>
+        </nav><!-- .nav-menu -->
+
+      </div>
+    </header><!-- End Header -->
+    {% block body %}
+    {% endblock %}
+
+    <!-- ======= Footer ======= -->
+    {% include 'footer.html' %}
+
+  </body>
+
+</html>
