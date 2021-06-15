@@ -37,10 +37,11 @@ def generate(request):
                     short_query=short,
                 )
                 newurl.save()
-                return redirect(dashboard)
+                messages.success(request, "Successfully shorted!")
+                return redirect("/#urlshortener")
             else:
                 messages.error(request, "Already Exists")
-                return redirect(dashboard)
+                return redirect("/#urlshortener")
         elif request.POST['original']:
             # generate randomly
             usr = request.user
@@ -56,14 +57,15 @@ def generate(request):
                         short_query=short,
                     )
                     newurl.save()
-                    return redirect(dashboard)
+                    messages.success(request, "Successfully shorted!")
+                    return redirect("/#urlshortener")
                 else:
                     continue
         else:
             messages.error(request, "Empty Fields")
-            return redirect(dashboard)
+            return redirect("/#urlshortener")
     else:
-        return redirect('/dashboard')
+        return redirect('/')
 
 
 def home(request, query=None):

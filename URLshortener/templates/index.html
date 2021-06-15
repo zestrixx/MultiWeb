@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block body %}
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center">
@@ -15,10 +16,9 @@
           <h2>A service that provides several powerful tools to
             help you grow and become time efficient.
           </h2>
-          <a href="#details" class="download-btn"><i
-              class="bx bxl-play-store"></i>
+          <a href="#details" class="download-btn" style="padding: 8px 24px;">
             Get Started</a>
-          <a href="#message" class="download-btn"><i class="bx bxl-apple"></i>
+          <a href="#message" class="download-btn" style="padding: 8px 24px;">
             Send Message</a>
         </div>
       </div>
@@ -204,37 +204,56 @@
         </div>
       </div>
 
-      <div class="row content">
+      <div class="row content" id="urlshortener">
         <div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
           <img src="{% static 'assets/img/details-4.png' %}" class="img-fluid"
             alt="">
         </div>
         <div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
-          <h3>Quas et necessitatibus eaque impedit ipsum animi consequatur
-            incidunt in</h3>
+          <h3>Shorten Your URL Now!</h3>
           <p class="font-italic">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore
-            magna aliqua.
+            Short your URL and keep records of link clicks.
           </p>
-          <p>
-            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-            aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-            sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum
-          </p>
-          <ul>
-            <li><i class="icofont-check"></i> Et praesentium laboriosam
-              architecto nam .</li>
-            <li><i class="icofont-check"></i> Eius et voluptate. Enim earum
-              tempore aliquid. Nobis et sunt consequatur. Aut repellat in
-              numquam velit quo dignissimos et.</li>
-            <li><i class="icofont-check"></i> Facilis ut et voluptatem
-              aperiam. Autem soluta ad fugiat.</li>
-          </ul>
+
+          {% if messages %}
+          {% for msg in messages %}
+          <div class="alert alert-danger alert-dismissible fade show"
+            role="alert">
+            {{ msg }}
+
+            <button type="button" class="close" data-dismiss="alert"
+              area-label="Close">
+              <span area-hidden-true>&times;</span>
+            </button>
+          </div>
+          {% endfor %}
+          {% endif %}
+
+          <form action="{% url 'generate' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+              <input type="url" name="original" class="form-control"
+                placeholder="Original Url">
+            </div>
+            <div class="form-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">http://short.ly/</div>
+                <input type="text" name="short" class="form-control"
+                  placeholder="Short Char (6 chars)" maxlength="6" id="short">
+
+              </div>
+              <p id="shorthelp" class="form-text text-muted">Leave It
+                Blank To generate randomly.</p>
+            </div>
+            <div class="form-group">
+              <input type="submit" class="btn px-4"
+                value="Generate" style="background-color: #47536e; color: white;">
+            </div>
+          </form>
+
         </div>
       </div>
+
     </div>
   </section><!-- End Details Section -->
 
@@ -416,7 +435,8 @@
 
       <div class="section-title">
         <h2>Contact</h2>
-        <p>Stuck somewhere using our services? Feel free to contact us. We will be happiest to help you out.</p>
+        <p>Stuck somewhere using our services? Feel free to contact us. We will
+          be happiest to help you out.</p>
       </div>
 
       <div class="row">

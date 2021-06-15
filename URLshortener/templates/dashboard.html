@@ -1,72 +1,26 @@
 {% extends 'nav.html' %}
-<style>
-  .customcontainer {
-    min-width: 100%;
-    border: 1px solid lightgrey;
-    border-radius: 5px;
-    max-width: 100%;
-    height: 100%;
-  }
-</style>
+{% block css %}
+
+.url-card:hover {
+cursor: pointer;
+box-shadow: 0 14px 25px -13px rgb(170, 170, 170);
+}
+{% endblock %}
 
 {% block body %}
 
-<div class="container shadow p-4">
-  <div class="row">
-    <div class="col-12 text-center py-2">
-      <h3>Shorten A Url</h3>
-    </div>
-    <div class="col-10 col-sm-10 col-md-6 mx-auto">
 
-      {% if messages %}
-      {% for msg in messages %}
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ msg }}
-
-        <button type="button" class="close" data-dismiss="alert"
-          area-label="Close">
-          <span area-hidden-true>&times;</span>
-        </button>
-      </div>
-      {% endfor %}
-      {% endif %}
-
-      <form action="{% url 'generate' %}" method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-          <input type="url" name="original" class="form-control"
-            placeholder="Original Url">
-        </div>
-        <div class="form-group">
-          <div class="input-group-prepend">
-            <div class="input-group-text">http://short.ly/</div>
-            <input type="text" name="short" class="form-control"
-              placeholder="Short Char (6 chars)" maxlength="6" id="short">
-
-          </div>
-          <p id="shorthelp" class="form-text text-muted">Leave It
-            Blank To generate randomly.</p>
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn btn-primary px-4" value="Generate">
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-<div class="container my-4">
-  <div class="row">
+<div class="container my-4 url" id="url">
+  <div class="row mb-4">
     <div class="col-12 text-center">
-      <h4>Your Urls</h4>
+      <h3>Your Urls</h3>
     </div>
   </div>
   <div class="row justify-content-between">
 
     {% for u in urls %}
 
-    <div class="col-10 col-sm-10 col-md-6 mb-2 mx-auto">
+    <div class="col-md-6 col-lg-4 mx-auto url-card">
 
       <div style="overflow: hidden;" class="customcontainer p-2">
 
@@ -75,13 +29,12 @@
             class="card-link">{{ u.original_url }}</a>
         </p>
 
-        <p>Shorten : <a href="http://localhost:8000/{{ u.short_query }}"
-            target="_blank"
+        <p>Shorten : <a href="/{{ u.short_query }}" target="_blank"
             class="card-link">http://short.ly/{{u.short_query}}</a>
         </p>
         <div class="row justify-content-between">
           <div class="col-6 col-sm-6 ">
-            <h3>Visits : {{ u.visits }} </h3>
+            <h4>Visits : {{ u.visits }} </h4>
           </div>
           <div class="col-4">
             <form action="{% url 'deleteurl' %}" method="post">
@@ -93,12 +46,12 @@
         </div>
 
       </div>
-
     </div>
     {% endfor %}
 
   </div>
 </div>
+<br>
 {% include 'footer.html' %}
 
 {% endblock %}
