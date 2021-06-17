@@ -124,5 +124,10 @@ def message(request):
     message = request.POST.get('msg')
     hour = int(datetime.datetime.now().strftime("%H"))
     min = int(datetime.datetime.now().strftime("%M"))
-    kit.sendwhatmsg(f'+91{phone}', message, hour, min)
-    messages.success(request, 'Message sent Successfully!')
+    try:
+        kit.sendwhatmsg("+91" + phone, message, 23, 34)
+        messages.success(request, 'Message sent Successfully!')
+        return redirect('/#messages')
+    except:
+        messages.error(request, 'Message sent Error')
+        return redirect('/#messages')

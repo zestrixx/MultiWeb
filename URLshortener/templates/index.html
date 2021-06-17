@@ -4,29 +4,29 @@
 
 {% block body %}
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex align-items-center">
+<section class="d-flex align-items-center" id="hero">
 
   <div class="container">
     <div class="row">
       <div
-        class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1"
-        data-aos="fade-up">
+              class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1"
+              data-aos="fade-up">
         <div>
           <h1>Do all your works, while having coffee</h1>
           <h2>A service that provides several powerful tools to
             help you grow and become time efficient.
           </h2>
-          <a href="#details" class="download-btn" style="padding: 8px 24px;">
+          <a class="download-btn" href="#details" style="padding: 8px 24px;">
             Get Started</a>
-          <a href="#message" class="download-btn" style="padding: 8px 24px;">
+          <a class="download-btn" href="#message" style="padding: 8px 24px;">
             Send Message</a>
         </div>
       </div>
       <div
-        class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img"
-        data-aos="fade-up">
-        <img src="{% static 'assets/img/hero-img.png' %}" class="img-fluid"
-          alt="">
+              class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img"
+              data-aos="fade-up">
+        <img alt="" class="img-fluid"
+             src="{% static 'assets/img/hero-img.png' %}">
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@
 <main id="main">
 
   <!-- ======= App Features Section ======= -->
-  <section id="features" class="features">
+  <section class="features" id="features">
     <div class="container">
 
       <div class="section-title">
@@ -59,28 +59,28 @@
                 </p>
               </div>
               <div class="col-md-6 icon-box" data-aos="fade-up"
-                data-aos-delay="100">
+                   data-aos-delay="100">
                 <i class="bx bx-cube-alt"></i>
                 <h4>Image Compression</h4>
                 <p>Filling form is something that need a specific size of photo.
                   Compress your images for all your forms.</p>
               </div>
               <div class="col-md-6 icon-box" data-aos="fade-up"
-                data-aos-delay="200">
+                   data-aos-delay="200">
                 <i class="bx bx-images"></i>
                 <h4>Video Calling</h4>
                 <p>Remembering someone? Video call your loved ones without
                   opening any other corresponding software.</p>
               </div>
               <div class="col-md-6 icon-box" data-aos="fade-up"
-                data-aos-delay="300">
+                   data-aos-delay="300">
                 <i class="bx bx-shield"></i>
                 <h4>Email Composing</h4>
                 <p>Now you need not to open Gmail or Outlook for incomings.
                   Check all your mails form single place from right here.</p>
               </div>
               <div class="col-md-6 icon-box" data-aos="fade-up"
-                data-aos-delay="400">
+                   data-aos-delay="400">
                 <i class="bx bx-atom"></i>
                 <h4>Messaging</h4>
                 <p>Need to send urgent message and don't want to waste time in
@@ -88,7 +88,7 @@
                   are good to go.</p>
               </div>
               <div class="col-md-6 icon-box" data-aos="fade-up"
-                data-aos-delay="500">
+                   data-aos-delay="500">
                 <i class="bx bx-id-card"></i>
                 <h4>Digital Signature</h4>
                 <p>Need to sign on an online form? We are again here for you.
@@ -98,10 +98,10 @@
           </div>
         </div>
         <div
-          class="image col-xl-5 d-flex align-items-stretch justify-content-center order-1 order-lg-2"
-          data-aos="fade-left" data-aos-delay="100">
-          <img src="{% static 'assets/img/features.svg' %}" class="img-fluid"
-            alt="">
+                class="image col-xl-5 d-flex align-items-stretch justify-content-center order-1 order-lg-2"
+                data-aos="fade-left" data-aos-delay="100">
+          <img alt="" class="img-fluid"
+               src="{% static 'assets/img/features.svg' %}">
         </div>
       </div>
 
@@ -109,13 +109,13 @@
   </section><!-- End App Features Section -->
 
   <!-- ======= Details Section ======= -->
-  <section id="details" class="details">
+  <section class="details" id="details">
     <div class="container">
 
       <div class="row content" id="messages">
         <div class="col-md-4" data-aos="fade-right">
-          <img src="{% static 'assets/img/details-1.png' %}" class="img-fluid"
-            alt="">
+          <img alt="" class="img-fluid"
+               src="{% static 'assets/img/details-1.png' %}">
         </div>
         <div class="col-md-8 pt-4" data-aos="fade-up">
           <h3>Send Messages to your Loved ones or to your Boss!</h3>
@@ -123,36 +123,46 @@
             Instant messaging service that keeps you connected.
           </p>
           {% if messages %}
-            {% for msg in messages %}
-              <div class="alert alert-success role="alert>{{ msg }}</div>
-            {% endfor %}
+          {% for msg in messages %}
+          <div class="alert alert-success alert-dismissible fade show"
+               role="alert">
+            <b>{{ msg }}</b>
+            <button area-label="Close" class="close" data-dismiss="alert"
+                    type="button">
+              <span area-hidden-true>&times;</span>
+            </button>
+          </div>
+          {% endfor %}
           {% endif %}
-          <form action="{% url 'message' %}">
+          <form action="{% url 'message' %}" method="POST">
+            {% csrf_token %}
             <div class="form-group">
               <label for="number">Phone Number</label>
-              <input type="tel" class="form-control" id="number"
-                aria-describedby="emailHelp" placeholder="Enter Phone Number"
-                name="number">
+              <input aria-describedby="emailHelp" class="form-control" id="number"
+                     name="number" placeholder="Enter Phone Number"
+                     type="tel">
             </div>
             <div class="form-group">
               <label for="msg">Messsage</label>
-              <input type="text" class="form-control" id="msg"
-                aria-describedby="emailHelp" placeholder="Enter Phone Number"
-                name="number" name="msg">
-              <small id="emailHelp" class="form-text text-muted">We'll never
+              <input aria-describedby="emailHelp" class="form-control" id="msg"
+                     name="msg" placeholder="Enter Phone Number" type="text">
+              <small class="form-text text-muted" id="emailHelp">We'll never
                 share your information with anyone else.</small>
             </div>
 
-            <div class="text-center"><button type="submit"
-                class="btn btn-outline-info">Send Message</button></div>
+            <div class="text-center">
+              <button class="btn btn-outline-info"
+                      type="submit">Send Message
+              </button>
+            </div>
           </form>
         </div>
       </div>
 
       <div class="row content" id="mail">
         <div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
-          <img src="{% static 'assets/img/details-2.png' %}" class="img-fluid"
-            alt="">
+          <img alt="" class="img-fluid"
+               src="{% static 'assets/img/details-2.png' %}">
         </div>
         <div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
           <h3>Corporis temporibus maiores provident</h3>
@@ -180,8 +190,8 @@
 
       <div class="row content" id="call">
         <div class="col-md-4" data-aos="fade-right">
-          <img src="{% static 'assets/img/details-3.png' %}" class="img-fluid"
-            alt="">
+          <img alt="" class="img-fluid"
+               src="{% static 'assets/img/details-3.png' %}">
         </div>
         <div class="col-md-8 pt-5" data-aos="fade-up">
           <h3>Sunt consequatur ad ut est nulla consectetur reiciendis animi
@@ -191,11 +201,14 @@
             voluptas dolor doloremque.</p>
           <ul>
             <li><i class="icofont-check"></i> Ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.</li>
+              aliquip ex ea commodo consequat.
+            </li>
             <li><i class="icofont-check"></i> Duis aute irure dolor in
-              reprehenderit in voluptate velit.</li>
+              reprehenderit in voluptate velit.
+            </li>
             <li><i class="icofont-check"></i> Facilis ut et voluptatem
-              aperiam. Autem soluta ad fugiat.</li>
+              aperiam. Autem soluta ad fugiat.
+            </li>
           </ul>
           <p>
             Qui consequatur temporibus. Enim et corporis sit sunt harum
@@ -212,8 +225,8 @@
 
       <div class="row content" id="urlshortener">
         <div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
-          <img src="{% static 'assets/img/details-4.png' %}" class="img-fluid"
-            alt="">
+          <img alt="" class="img-fluid"
+               src="{% static 'assets/img/details-4.png' %}">
         </div>
         <div class="col-md-8 pt-5 order-2 order-md-1" data-aos="fade-up">
           <h3>Shorten Your URL Now!</h3>
@@ -223,12 +236,11 @@
 
           {% if messages %}
           {% for msg in messages %}
-          <div class="alert alert-danger alert-dismissible fade show"
-            role="alert">
-            {{ msg }}
-
-            <button type="button" class="close" data-dismiss="alert"
-              area-label="Close">
+          <div class="alert alert-success alert-dismissible fade show"
+               role="alert">
+            <b>{{ msg }}</b>
+            <button area-label="Close" class="close" data-dismiss="alert"
+                    type="button">
               <span area-hidden-true>&times;</span>
             </button>
           </div>
@@ -238,22 +250,22 @@
           <form action="{% url 'generate' %}" method="POST">
             {% csrf_token %}
             <div class="form-group">
-              <input type="url" name="original" class="form-control"
-                placeholder="Original Url">
+              <input class="form-control" name="original" placeholder="Original Url"
+                     type="url">
             </div>
             <div class="form-group">
               <div class="input-group-prepend">
                 <div class="input-group-text">http://short.ly/</div>
-                <input type="text" name="short" class="form-control"
-                  placeholder="Short Char (6 chars)" maxlength="6" id="short">
+                <input class="form-control" id="short" maxlength="6"
+                       name="short" placeholder="Short Char (6 chars)" type="text">
 
               </div>
-              <p id="shorthelp" class="form-text text-muted">Leave It
+              <p class="form-text text-muted" id="shorthelp">Leave It
                 Blank To generate randomly.</p>
             </div>
             <div class="form-group">
-              <input type="submit" class="btn px-4" value="Generate"
-                style="background-color: #47536e; color: white;">
+              <input class="btn px-4" style="background-color: #47536e; color: white;" type="submit"
+                     value="Generate">
             </div>
           </form>
 
@@ -264,7 +276,7 @@
   </section><!-- End Details Section -->
 
   <!-- ======= Team section ======= -->
-  <section id="team" class="team section-bg">
+  <section class="team section-bg" id="team">
     <div class="section-title">
       <h2 data-aos="fade-in">Team</h2>
       <p data-aos="fade-in">Behind any big inventions, there are several
@@ -276,7 +288,7 @@
   </section><!-- End Team Section -->
 
   <!-- ======= Pricing Section ======= -->
-  <section id="pricing" class="pricing">
+  <section class="pricing" id="pricing">
     <div class="container">
 
       <div class="section-title">
@@ -305,7 +317,7 @@
             <li class="na"><i class="bx bx-x"></i> <span>Email Composing</span>
             </li>
           </ul>
-          <a href="#" class="get-started-btn">Get Started</a>
+          <a class="get-started-btn" href="#">Get Started</a>
         </div>
 
         <div class="col-lg-4 box featured" data-aos="fade-up">
@@ -322,7 +334,7 @@
             <li class="na"><i class="bx bx-x"></i> <span>Email Composing</span>
             </li>
           </ul>
-          <a href="#" class="get-started-btn">Get Started</a>
+          <a class="get-started-btn" href="#">Get Started</a>
         </div>
 
         <div class="col-lg-4 box" data-aos="fade-left">
@@ -336,7 +348,7 @@
             <li><i class="bx bx-check"></i> Digital Signature</li>
             <li><i class="bx bx-check"></i> Email Composing</li>
           </ul>
-          <a href="#" class="get-started-btn">Get Started</a>
+          <a class="get-started-btn" href="#">Get Started</a>
         </div>
 
       </div>
@@ -345,7 +357,7 @@
   </section><!-- End Pricing Section -->
 
   <!-- ======= Frequently Asked Questions Section ======= -->
-  <section id="faq" class="faq section-bg">
+  <section class="faq section-bg" id="faq">
     <div class="container">
 
       <div class="section-title">
@@ -361,12 +373,12 @@
         <ul>
           <li data-aos="fade-up">
             <i class="bx bx-help-circle icon-help"></i> <a
-              data-toggle="collapse" class="collapse"
-              href="#accordion-list-1">What are modes of payment? <i
-                class="bx bx-chevron-down icon-show"></i><i
-                class="bx bx-chevron-up icon-close"></i></a>
-            <div id="accordion-list-1" class="collapse show"
-              data-parent=".accordion-list">
+                  class="collapse" data-toggle="collapse"
+                  href="#accordion-list-1">What are modes of payment? <i
+                  class="bx bx-chevron-down icon-show"></i><i
+                  class="bx bx-chevron-up icon-close"></i></a>
+            <div class="collapse show" data-parent=".accordion-list"
+                 id="accordion-list-1">
               <p>
                 We accept almost every payment method, UPI, Card, PayPal, Paytm
                 etc.
@@ -376,13 +388,13 @@
 
           <li data-aos="fade-up" data-aos-delay="100">
             <i class="bx bx-help-circle icon-help"></i> <a
-              data-toggle="collapse" href="#accordion-list-2"
-              class="collapsed">What if paid services don't work even after
-              paying the amount?
-              <i class="bx bx-chevron-down icon-show"></i><i
-                class="bx bx-chevron-up icon-close"></i></a>
-            <div id="accordion-list-2" class="collapse"
-              data-parent=".accordion-list">
+                  class="collapsed" data-toggle="collapse"
+                  href="#accordion-list-2">What if paid services don't work even after
+            paying the amount?
+            <i class="bx bx-chevron-down icon-show"></i><i
+                    class="bx bx-chevron-up icon-close"></i></a>
+            <div class="collapse" data-parent=".accordion-list"
+                 id="accordion-list-2">
               <p>
                 As soon we get confirmation about the payment, our paid services
                 will be activated for you. If still you are facing issues we
@@ -396,12 +408,12 @@
 
           <li data-aos="fade-up" data-aos-delay="200">
             <i class="bx bx-help-circle icon-help"></i> <a
-              data-toggle="collapse" href="#accordion-list-3"
-              class="collapsed">Do you keep our payment data?
-              <i class="bx bx-chevron-down icon-show"></i><i
-                class="bx bx-chevron-up icon-close"></i></a>
-            <div id="accordion-list-3" class="collapse"
-              data-parent=".accordion-list">
+                  class="collapsed" data-toggle="collapse"
+                  href="#accordion-list-3">Do you keep our payment data?
+            <i class="bx bx-chevron-down icon-show"></i><i
+                    class="bx bx-chevron-up icon-close"></i></a>
+            <div class="collapse" data-parent=".accordion-list"
+                 id="accordion-list-3">
               <p>
                 We don't keep records of any type until you allow us to do so.
                 So, you need not to worry about your data, if it's with
@@ -412,13 +424,13 @@
 
           <li data-aos="fade-up" data-aos-delay="300">
             <i class="bx bx-help-circle icon-help"></i> <a
-              data-toggle="collapse" href="#accordion-list-4"
-              class="collapsed">Do I everytime need to to put numbers of person
-              whom I want to send messages?<i
-                class="bx bx-chevron-down icon-show"></i><i
-                class="bx bx-chevron-up icon-close"></i></a>
-            <div id="accordion-list-4" class="collapse"
-              data-parent=".accordion-list">
+                  class="collapsed" data-toggle="collapse"
+                  href="#accordion-list-4">Do I everytime need to to put numbers of person
+            whom I want to send messages?<i
+                    class="bx bx-chevron-down icon-show"></i><i
+                    class="bx bx-chevron-up icon-close"></i></a>
+            <div class="collapse" data-parent=".accordion-list"
+                 id="accordion-list-4">
               <p>
                 We don't store record of contact numbers without your
                 permission. If you want to send messages or call someone by
@@ -436,7 +448,7 @@
   </section><!-- End Frequently Asked Questions Section -->
 
   <!-- ======= Contact Section ======= -->
-  <section id="contact" class="contact">
+  <section class="contact" id="contact">
     <div class="container">
 
       <div class="section-title">
@@ -478,34 +490,37 @@
         </div>
 
         <div class="col-lg-6">
-          <form action="/contact/" method="POST" role="form" data-aos="fade-up">
+          <form action="/contact/" data-aos="fade-up" method="POST" role="form">
             {% csrf_token %}
             <div class="form-group">
-              <input placeholder="Your Name" type="text" name="name"
-                class="form-control" id="name" data-rule="minlen:4"
-                data-msg="Please enter at least 4 chars" />
+              <input class="form-control" data-msg="Please enter at least 4 chars" data-rule="minlen:4"
+                     id="name" name="name" placeholder="Your Name"
+                     type="text"/>
               <div class="validate"></div>
             </div>
             <div class="form-group">
-              <input placeholder="Your Email" type="email" class="form-control"
-                name="email" id="email" data-rule="email"
-                data-msg="Please enter a valid email" />
+              <input class="form-control" data-msg="Please enter a valid email" data-rule="email"
+                     id="email" name="email" placeholder="Your Email"
+                     type="email"/>
               <div class="validate"></div>
             </div>
             <div class="form-group">
-              <input placeholder="Subject" type="text" class="form-control"
-                name="subject" id="subject" data-rule="minlen:4"
-                data-msg="Please enter at least 8 chars of subject" />
+              <input class="form-control" data-msg="Please enter at least 8 chars of subject" data-rule="minlen:4"
+                     id="subject" name="subject" placeholder="Subject"
+                     type="text"/>
               <div class="validate"></div>
             </div>
             <div class="form-group">
-              <textarea placeholder="Message" class="form-control" name="query"
-                rows="5" data-rule="required"
-                data-msg="Please write something for us"></textarea>
+              <textarea class="form-control" data-msg="Please write something for us" data-rule="required"
+                        name="query" placeholder="Message"
+                        rows="5"></textarea>
             </div>
-            <div class="text-center"><button type="submit"
-                class="btn btn-outline-success">Send
-                Message</button></div>
+            <div class="text-center">
+              <button class="btn btn-outline-success"
+                      type="submit">Send
+                Message
+              </button>
+            </div>
           </form>
         </div>
 
