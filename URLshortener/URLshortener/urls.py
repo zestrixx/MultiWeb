@@ -18,7 +18,7 @@ from django.urls import path
 from django.contrib import admin
 from django.urls import path
 from authentication.views import login, signup, logout
-from urlhandler.views import dashboard, generate, home, deleteurl, contact
+from urlhandler.views import dashboard, generate, home, deleteurl, contact, message
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +29,7 @@ urlpatterns = [
     path('dashboard/', dashboard, name="dashboard"),
     path('generate/', generate, name="generate"),
     path('deleteurl/', deleteurl, name="deleteurl"),
-    path('contact/', contact, name="home"),
+    path('contact/', contact, name="contact"),    
+    path('message/', message, name="message"),    
     path('<str:query>/', home, name="home"),
 ]

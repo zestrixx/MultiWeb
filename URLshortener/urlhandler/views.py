@@ -1,9 +1,14 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from .models import shorturl, Issues
+import datetime
 import random
 import string
+
+import pywhatkit as kit
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+
+from .models import shorturl, Issues
+
 
 # Create your views here.
 
@@ -81,6 +86,7 @@ def home(request, query=None):
         except shorturl.DoesNotExist:
             return render(request, 'index.html', {'error': "error"})
 
+
 # added delete URl
 
 @login_required(login_url='/login/')
@@ -96,16 +102,27 @@ def deleteurl(request):
     else:
         return redirect(home)
 
+
 @login_required(login_url='/login/')
 def contact(request):
     if request.method == "POST":
-        name= request.POST['name']
-        email= request.POST['email']
-        subject= request.POST['subject']
-        query= request.POST['query']
-        msg=Issues(name=name,email=email,subject=subject, query=query)
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        query = request.POST['query']
+        msg = Issues(name=name, email=email, subject=subject, query=query)
         msg.save()
         messages.success(request, 'Message sent successfully!')
         return redirect('/#contact')
     else:
         return redirect(home)
+
+
+def message(request):
+    user = request.user
+    phone = request.POST.get('number')
+    message = request.POST.get('msg')
+    hour = int(datetime.datetime.now().strftime("%H"))
+    min = int(datetime.datetime.now().strftime("%M"))
+    kit.sendwhatmsg(f'+91{phone}', message, hour, min)
+    messages.success(request, 'Message sent Successfully!')

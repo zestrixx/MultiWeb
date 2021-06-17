@@ -112,38 +112,44 @@
   <section id="details" class="details">
     <div class="container">
 
-      <div class="row content">
+      <div class="row content" id="messages">
         <div class="col-md-4" data-aos="fade-right">
           <img src="{% static 'assets/img/details-1.png' %}" class="img-fluid"
             alt="">
         </div>
         <div class="col-md-8 pt-4" data-aos="fade-up">
-          <h3>Voluptatem dignissimos provident quasi corporis voluptates sit
-            assumenda.</h3>
+          <h3>Send Messages to your Loved ones or to your Boss!</h3>
           <p class="font-italic">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore
-            magna aliqua.
+            Instant messaging service that keeps you connected.
           </p>
-          <ul>
-            <li><i class="icofont-check"></i> Ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.</li>
-            <li><i class="icofont-check"></i> Duis aute irure dolor in
-              reprehenderit in voluptate velit.</li>
-            <li><i class="icofont-check"></i> Iure at voluptas aspernatur
-              dignissimos doloribus repudiandae.</li>
-            <li><i class="icofont-check"></i> Est ipsa assumenda id facilis
-              nesciunt placeat sed doloribus praesentium.</li>
-          </ul>
-          <p>
-            Voluptas nisi in quia excepturi nihil voluptas nam et ut.
-            Expedita omnis eum consequatur non. Sed in asperiores aut
-            repellendus. Error quisquam ab maiores. Quibusdam sit in officia
-          </p>
+          {% if messages %}
+            {% for msg in messages %}
+              <div class="alert alert-success role="alert>{{ msg }}</div>
+            {% endfor %}
+          {% endif %}
+          <form action="{% url 'message' %}">
+            <div class="form-group">
+              <label for="number">Phone Number</label>
+              <input type="tel" class="form-control" id="number"
+                aria-describedby="emailHelp" placeholder="Enter Phone Number"
+                name="number">
+            </div>
+            <div class="form-group">
+              <label for="msg">Messsage</label>
+              <input type="text" class="form-control" id="msg"
+                aria-describedby="emailHelp" placeholder="Enter Phone Number"
+                name="number" name="msg">
+              <small id="emailHelp" class="form-text text-muted">We'll never
+                share your information with anyone else.</small>
+            </div>
+
+            <div class="text-center"><button type="submit"
+                class="btn btn-outline-info">Send Message</button></div>
+          </form>
         </div>
       </div>
 
-      <div class="row content">
+      <div class="row content" id="mail">
         <div class="col-md-4 order-1 order-md-2" data-aos="fade-left">
           <img src="{% static 'assets/img/details-2.png' %}" class="img-fluid"
             alt="">
@@ -172,7 +178,7 @@
         </div>
       </div>
 
-      <div class="row content">
+      <div class="row content" id="call">
         <div class="col-md-4" data-aos="fade-right">
           <img src="{% static 'assets/img/details-3.png' %}" class="img-fluid"
             alt="">
@@ -402,7 +408,7 @@
                 us, it will be safe.
               </p>
             </div>
-          </li> 
+          </li>
 
           <li data-aos="fade-up" data-aos-delay="300">
             <i class="bx bx-help-circle icon-help"></i> <a
@@ -437,12 +443,12 @@
         <h2>Contact</h2>
         <p>Stuck somewhere using our services? Feel free to contact us. We will
           be happiest to help you out.</p>
-        </div>
-        {% if messages %}
-          {% for msg in messages %}
-            <div class="alert alert-success" role="alert">{{ msg }}</div>
-          {% endfor %}
-        {% endif %}
+      </div>
+      {% if messages %}
+      {% for msg in messages %}
+      <div class="alert alert-success" role="alert">{{ msg }}</div>
+      {% endfor %}
+      {% endif %}
 
       <div class="row">
 
