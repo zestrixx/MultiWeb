@@ -1,7 +1,7 @@
 import datetime
 import random
 import string
-
+import pytz
 import pywhatkit as kit
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -45,7 +45,7 @@ def generate(request):
                 messages.success(request, "Successfully shorted!")
                 return redirect("/#urlshortener")
             else:
-                messages.error(request, "Already Exists")
+                messages.info(request, "Already Exists")
                 return redirect("/#urlshortener")
         elif request.POST['original']:
             # generate randomly
@@ -67,7 +67,7 @@ def generate(request):
                 else:
                     continue
         else:
-            messages.error(request, "Empty Fields")
+            messages.info(request, "Empty Fields")
             return redirect("/#urlshortener")
     else:
         return redirect('/')
@@ -105,29 +105,34 @@ def deleteurl(request):
 
 @login_required(login_url='/login/')
 def contact(request):
-    if request.method == "POST":
-        name = request.POST['name']
-        email = request.POST['email']
-        subject = request.POST['subject']
-        query = request.POST['query']
-        msg = Issues(name=name, email=email, subject=subject, query=query)
-        msg.save()
-        messages.success(request, 'Message sent successfully!')
-        return redirect('/#contact')
-    else:
-        return redirect(home)
+    try:
+        if request.method == "POST":
+            name = request.POST['name']
+            email = request.POST['email']
+            subject = request.POST['subject']
+            query = request.POST['query']
+            msg = Issues(name=name, email=email, subject=subject, query=query)
+            msg.save()
+            messages.success(request, 'Message sent successfully!')
+            return redirect('/#contact')
+        else:
+            return redirect(home)
+    except Exception:
+        messages.error(request, 'Message could not be sent at this moment. Please try again.')
 
 
 def message(request):
     user = request.user
     phone = request.POST.get('number')
     message = request.POST.get('msg')
-    hour = int(datetime.datetime.now().strftime("%H"))
-    min = int(datetime.datetime.now().strftime("%M"))
+    IST = pytz.timezone('Asia/Kolkata')
+    time = datetime.datetime.now(IST)
+    hr = int(time.strftime('%H'))
+    mn = int(time.strftime('%M'))
     try:
-        kit.sendwhatmsg("+91" + phone, message, 23, 34)
+        kit.sendwhatmsg("+91" + phone, message, hr, mn + 1, 0)
         messages.success(request, 'Message sent Successfully!')
         return redirect('/#messages')
     except:
-        messages.error(request, 'Message sent Error')
+        messages.info(request, 'Message not sent')
         return redirect('/#messages')

@@ -124,7 +124,7 @@
           </p>
           {% if messages %}
           {% for msg in messages %}
-          <div class="alert alert-success alert-dismissible fade show"
+          <div class="alert alert-{{msg.tags}} alert-dismissible fade show"
                role="alert">
             <b>{{ msg }}</b>
             <button area-label="Close" class="close" data-dismiss="alert"
@@ -264,8 +264,9 @@
                 Blank To generate randomly.</p>
             </div>
             <div class="form-group">
-              <input class="btn px-4" style="background-color: #47536e; color: white;" type="submit"
-                     value="Generate">
+              <button class="btn btn-outline-info"
+                      type="submit">Short URL
+              </button>
             </div>
           </form>
 
@@ -516,7 +517,7 @@
                         rows="5"></textarea>
             </div>
             <div class="text-center">
-              <button class="btn btn-outline-success"
+              <button class="btn btn-outline-info"
                       type="submit">Send
                 Message
               </button>
