@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import shorturl
+from .models import shorturl, Issues
 import random
 import string
 
@@ -93,5 +93,19 @@ def deleteurl(request):
             return redirect(dashboard)
         except shorturl.DoesNotExist:
             return redirect(home)
+    else:
+        return redirect(home)
+
+@login_required(login_url='/login/')
+def contact(request):
+    if request.method == "POST":
+        name= request.POST['name']
+        email= request.POST['email']
+        subject= request.POST['subject']
+        query= request.POST['query']
+        msg=Issues(name=name,email=email,subject=subject, query=query)
+        msg.save()
+        messages.success(request, 'Message sent successfully!')
+        return redirect('/#contact')
     else:
         return redirect(home)

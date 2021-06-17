@@ -246,8 +246,8 @@
                 Blank To generate randomly.</p>
             </div>
             <div class="form-group">
-              <input type="submit" class="btn px-4"
-                value="Generate" style="background-color: #47536e; color: white;">
+              <input type="submit" class="btn px-4" value="Generate"
+                style="background-color: #47536e; color: white;">
             </div>
           </form>
 
@@ -379,7 +379,7 @@
               data-parent=".accordion-list">
               <p>
                 As soon we get confirmation about the payment, our paid services
-                will be activated for you. Still you are facing issues we
+                will be activated for you. If still you are facing issues we
                 recommend you to contact our team. We will definitely look after
                 your matter. And if still it doesn't work for you then we will
                 return your money back to the same payment method as used during
@@ -397,12 +397,12 @@
             <div id="accordion-list-3" class="collapse"
               data-parent=".accordion-list">
               <p>
-                We don't keep records of any type untill you allow us for the
-                same. So, you need not to worry about your data, if it's with
+                We don't keep records of any type until you allow us to do so.
+                So, you need not to worry about your data, if it's with
                 us, it will be safe.
               </p>
             </div>
-          </li>
+          </li> 
 
           <li data-aos="fade-up" data-aos-delay="300">
             <i class="bx bx-help-circle icon-help"></i> <a
@@ -418,7 +418,7 @@
                 permission. If you want to send messages or call someone by
                 selecting their names instead of putting numbers then you must
                 have to accept our terms and conditions and provide us the name
-                of the person so that we can save it in out database and fetch
+                of the person so that we can save it in our database and fetch
                 the same for you in future.
               </p>
             </div>
@@ -437,7 +437,12 @@
         <h2>Contact</h2>
         <p>Stuck somewhere using our services? Feel free to contact us. We will
           be happiest to help you out.</p>
-      </div>
+        </div>
+        {% if messages %}
+          {% for msg in messages %}
+            <div class="alert alert-success" role="alert">{{ msg }}</div>
+          {% endfor %}
+        {% endif %}
 
       <div class="row">
 
@@ -467,8 +472,8 @@
         </div>
 
         <div class="col-lg-6">
-          <form action="forms/contact.php" method="post" role="form"
-            class="php-email-form" data-aos="fade-up">
+          <form action="/contact/" method="POST" role="form" data-aos="fade-up">
+            {% csrf_token %}
             <div class="form-group">
               <input placeholder="Your Name" type="text" name="name"
                 class="form-control" id="name" data-rule="minlen:4"
@@ -488,18 +493,12 @@
               <div class="validate"></div>
             </div>
             <div class="form-group">
-              <textarea placeholder="Message" class="form-control"
-                name="message" rows="5" data-rule="required"
+              <textarea placeholder="Message" class="form-control" name="query"
+                rows="5" data-rule="required"
                 data-msg="Please write something for us"></textarea>
-              <div class="validate"></div>
             </div>
-            <div class="mb-3">
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank
-                you!</div>
-            </div>
-            <div class="text-center"><button type="submit">Send
+            <div class="text-center"><button type="submit"
+                class="btn btn-outline-success">Send
                 Message</button></div>
           </form>
         </div>
